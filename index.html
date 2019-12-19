@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>JS Clock</title>
+
+    <link href="https://fonts.googleapis.com/css?family=Girassol&display=swap" rel="stylesheet">
+
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    
+    <link rel="stylesheet" href="./styles.css">
+
+</head>
+<body>
+<div class="parent">
+
+    <div id="clock">
+        <p class="date">{{ date }}</p>
+        <p class="time">{{ time }}</p>
+        <p class="text">DIGITAL CLOCK</p>
+    </div>
+
+
+    <div class="music_container">
+        <audio controls id="music">
+            <source src="./songs.mp3" type="audio/mpeg">
+            Your browser does not support the audio element.
+        </audio>
+            
+            
+        <button class="toggle" onclick="play()" type="button">Play </button>
+        <button class="toggle" onclick="pause()" type="button">Pause</button>
+    </div>
+
+</div>
+    <script>
+        
+    var clock = new Vue({
+        el: '#clock',
+        data: {
+            time: '',
+            date: ''
+        }
+    });
+
+    var week = ['SUNDAY', 'MONDAY', 'TUESDAY', 'WEDNESDAY', 'THURSDAY', 'FRIDAY', 'SATURDAY'];
+    var timerID = setInterval(updateTime, 1000);
+    updateTime();
+    function updateTime() {
+        var cd = new Date();
+        clock.time = zeroPadding(cd.getHours(), 2) + ':' + zeroPadding(cd.getMinutes(), 2) + ':' + zeroPadding(cd.getSeconds(), 2);
+        clock.date = zeroPadding(cd.getFullYear(), 4) + '-' + zeroPadding(cd.getMonth()+1, 2) + '-' + zeroPadding(cd.getDate(), 2) + ' ' + week[cd.getDay()];
+    };
+
+    function zeroPadding(num, digit) {
+        var zero = '';
+        for(var i = 0; i < digit; i++) {
+            zero += '0';
+        }
+        return (zero + num).slice(-digit);
+    }
+    
+
+    var myMusic= document.getElementById("music");
+    function play() {
+    myMusic.play();
+    }
+
+    function pause() {
+    myMusic.pause();
+    }   
+
+
+
+        </script>
+</body>
+</html>
