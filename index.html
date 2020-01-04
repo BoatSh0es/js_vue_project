@@ -1,15 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>JS VUE CHRISTMAS TIMER FUN PAGE</title>
+    <title>Christmas Countdown Timer</title>
 
     
     <link href="https://fonts.googleapis.com/css?family=Montserrat&display=swap" rel="stylesheet">
+
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-    <script src="./index.js"></script>
     
     <link rel="stylesheet" href="./styles.css">
 
@@ -17,6 +18,7 @@
 
 
 <body>
+
     <canvas id="canvas" ></canvas>
     <div id="clock">
         
@@ -52,7 +54,7 @@
                 <input class="button_two" type="image" src="./images/ornament-md-2.png" onclick="pause()" />
  
 
-          <Timer 
+           <Timer 
                  starttime="Jan 3, 2019 13:05:00" 
                  endtime="Dec 24, 2020 23:59:00" 
                  trans='{  
@@ -68,7 +70,8 @@
                     "running":"",
                     "upcoming":"Future"
                    }}'
-                 ></Timer>
+                 >
+            </Timer>
         </div>
         
 
@@ -79,12 +82,14 @@
       
 
 
+
     <script>
-        (function() {
+
+(function() {
     var requestAnimationFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame || window.webkitRequestAnimationFrame || window.msRequestAnimationFrame ||
     function(callback) {
-        window.setTimeout(callback, 1000 / 60);
-    };
+     window.setTimeout(callback, 1000 / 60);
+};
     window.requestAnimationFrame = requestAnimationFrame;
 })();
 
@@ -197,59 +202,63 @@ window.addEventListener("resize",function(){
 
 init();
 
-    var clock = new Vue({
-            el: '#clock',
-            data: {
-                time: '',
-                date: ''
-            }
-        });
-        var week = ['SUNDAY', 'MONDAY', 'TUESDAY', 'WEDNESDAY', 'THURSDAY', 'FRIDAY', 'SATURDAY'];
-        var timerID = setInterval(updateTime, 1000);
-        updateTime();
-        function updateTime() {
-            var cd = new Date();
-            clock.time = zeroPadding(cd.getHours(), 2) + ':' + zeroPadding(cd.getMinutes(), 2) + ':' + zeroPadding(cd.getSeconds(), 2);
-            clock.date = zeroPadding(cd.getFullYear(), 4) + '-' + zeroPadding(cd.getMonth()+1, 2) + '-' + zeroPadding(cd.getDate(), 2) + ' ' + week[cd.getDay()];
-        };
-        function zeroPadding(num, digit) {
-            var zero = '';
-            for(var i = 0; i < digit; i++) {
-                zero += '0';
-            }
-            return (zero + num).slice(-digit);
+var clock = new Vue({
+        el: '#clock',
+        data: {
+            time: '',
+            date: ''
         }
+    });
+var week = ['SUNDAY', 'MONDAY', 'TUESDAY', 'WEDNESDAY', 'THURSDAY', 'FRIDAY', 'SATURDAY'];
+
+var timerID = setInterval(updateTime, 1000);
+
+updateTime();
+    function updateTime() {
+        var cd = new Date();
+        clock.time = zeroPadding(cd.getHours(), 2) + ':' + zeroPadding(cd.getMinutes(), 2) + ':' + zeroPadding(cd.getSeconds(), 2);
+        clock.date = zeroPadding(cd.getFullYear(), 4) + '-' + zeroPadding(cd.getMonth()+1, 2) + '-' + zeroPadding(cd.getDate(), 2) + ' ' + week[cd.getDay()];
+    };
+    function zeroPadding(num, digit) {
+        var zero = '';
+        for(var i = 0; i < digit; i++) {
+            zero += '0';
+        }
+        return (zero + num).slice(-digit);
+    }
 
 
 
 
 
-    Vue.component('Timer',{
-        template: `
-        <div>
-        <div v-show ="statusType !== 'expired'">
-            <div class="day">
-            <span class="number">{{ days }}</span>
-            <div class="format">{{ wordString.day }}</div>
-            </div>
-            <div class="hour">
-            <span class="number">{{ hours }}</span>
-            <div class="format">{{ wordString.hours }}</div>
-            </div>
-            <div class="min">
-            <span class="number">{{ minutes }}</span>
-            <div class="format">{{ wordString.minutes }}</div>
-            </div>
-            <div class="sec">
-            <span class="number">{{ seconds }}</span>
-            <div class="format">{{ wordString.seconds }}</div>
-            </div>
+Vue.component('Timer',{
+    template: `
+    <div>
+    <div v-show ="statusType !== 'expired'">
+        <div class="day">
+        <span class="number">{{ days }}</span>
+        <div class="format">{{ wordString.day }}</div>
         </div>
-        <div class="message">{{ message }}</div>
-        <div class="status-tag" :class="statusType">{{ statusText }}</div>
+        <div class="hour">
+        <span class="number">{{ hours }}</span>
+        <div class="format">{{ wordString.hours }}</div>
         </div>
+        <div class="min">
+        <span class="number">{{ minutes }}</span>
+        <div class="format">{{ wordString.minutes }}</div>
+        </div>
+        <div class="sec">
+        <span class="number">{{ seconds }}</span>
+        <div class="format">{{ wordString.seconds }}</div>
+        </div>
+    </div>
+    <div class="message">{{ message }}</div>
+    <div class="status-tag" :class="statusType">{{ statusText }}</div>
+    </div>
     `,
+
     props: ['starttime','endtime','trans'] ,
+
     data: function(){
         return{
             timer:"",
@@ -315,19 +324,20 @@ init();
   }
 });
 
-    new Vue({
+new Vue({
     el: "#timer",
-    });
+});
 
 
-    var myMusic= document.getElementById("music");
-    function play() {
+var myMusic= document.getElementById("music");
+
+function play() {
     myMusic.play();
-    }
+ }
 
-    function pause() {
+function pause() {
     myMusic.pause();
-    }   
+}   
 
 
 
